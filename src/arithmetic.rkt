@@ -6,8 +6,13 @@
 
 #lang racket
 
+(provide q=)
 (provide q+)
 (provide q-)
+(provide q*)
+(provide q/)
+(provide qmag)
+(provide qexpt)
 
 (define (real l) (car l))
 (define (gi l) (cadr l)) ;get i
@@ -24,7 +29,7 @@
    )
   )
 )
-;Add sums two quartenions
+;Add sums two quaternions
 (define (add q1 q2)
   (for/list ([d1 q1]
              [d2 q2])
@@ -88,7 +93,7 @@
   )
 )
 
-;Recursively adds n quartenions
+;Recursively adds n quaternions
 (define (q+ allq)
   (if (equal? (cdr allq) '())
        (car allq)
@@ -96,7 +101,7 @@
    )
 )
 
-;Recursively subs n quartenions
+;Recursively subs n quaternions
 (define (q- allq)
   (if (equal? (cdr allq) '())
       (car allq)
@@ -107,18 +112,29 @@
   (reverse (cdr (reverse L)))
 )
 
-;Recursively multiply n quartenions
+;Recursively multiply n quaternions
 (define (q* allq)
   (if (equal? (cdr allq) '())
       (car allq)
       (mult (car allq) (q* (cdr allq)))
       )
 )
-;Recursively divides n quartenions
+;Recursively divides n quaternions
 (define (q/ allq)
   (if (equal? (cdr allq) '())
       (car allq)
       (div (car allq) (q/ (cdr allq)))
+  )
+)
+
+;recursively compare n quarternions
+(define (q= allq)
+  (if (equal? (cdr allq) '())
+      #t
+      (if (q= (cdr allq))
+          (andmap equal? (car allq) (cadr allq))
+          #f
+       )
   )
 )
 
@@ -136,7 +152,7 @@
 ;Obs: The magnetude and power functions I made doesn't fit in this input format;
 ;not sure if we should make a special case for them or make then
 ;receive the input the same way the others, and where the code should expect 
-;another quartenions there would be nothing or the other necessary arguments
+;another quaternions there would be nothing or the other necessary arguments
 ;for given functions(like the n in quart power n)
 
 
@@ -188,7 +204,7 @@
 ;div divides one quartenion by another
 ;mult multiply one quartenion by another
 
-;rec add recursively use add to add n quartenions
-;rec mult recursively use mult to mult n quartenions
-;rec sub recursively use sub to sub n quartenions
-;rec div recursively use div to div n quartenions
+;rec add recursively use add to add n quaternions
+;rec mult recursively use mult to mult n quaternions
+;rec sub recursively use sub to sub n quaternions
+;rec div recursively use div to div n quaternions
