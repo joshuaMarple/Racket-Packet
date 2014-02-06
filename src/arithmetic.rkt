@@ -14,6 +14,11 @@
 (provide qmag)
 (provide qexpt)
 
+(provide real)
+(provide gi)
+(provide gj)
+(provide gk)
+
 (define (real l) (car l))
 (define (gi l) (cadr l)) ;get i
 (define (gj l) (caddr l));get j
@@ -83,15 +88,17 @@
 )
 
 ;qexpt make a quartenion power n
-(define (qexpt q times) 
-  (if (> times 0)
-      (if (> times 1)
-          (mult q (qexpt q (- times 1)))
-           q
+(define (q^ q times) 
+  (if (= times 0) '(1 0 0 0)
+      (if (positive? times) (mult q (qexpt q (- times 1)))
+          (div (qexpt q (+ times 1)) q)
        )
-    '(1 0 0 0)
+    
   )
 )
+
+(define (qexpt allq)
+  (q^ (first allq) (real (rest allq))))
 
 ;Recursively adds n quaternions
 (define (q+ allq)
