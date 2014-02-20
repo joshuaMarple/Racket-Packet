@@ -66,7 +66,7 @@
 
 ;Div divide one quartenion by another
 (define (div q1 q2)
-  (mult q1 (map (lambda (x) (/ x (* (mag q2) (mag q2)))) (append (list(real q2)) (map - (rest q2))))) 
+  (mult q1 (map (lambda (x) (/ x (* (qmag q2) (qmag q2)))) (append (list(real q2)) (map - (rest q2))))) 
 )
 
 ;qexpt make a quartenion power n
