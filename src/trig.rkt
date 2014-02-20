@@ -17,3 +17,11 @@
 
 (define (ve v)
   (cons (cos (qmag v)) (map (lambda (x) (* (sin(qmag v)) x)) (toUnit v))))
+
+(define (sin q)
+  (map (lambda (q) (/ (- (exp (* (toUnit(rest q)) q)) (exp (* -1 (* (toUnit(rest q)) q))))
+                      (* 2 (toUnit(rest q))))) q))
+                      
+(define (cos q)
+  (map (lambda (q) (/ (+ (exp (* (toUnit(rest q)) q)) (exp (* -1 (* (toUnit(rest q)) q))))
+                      (* 2 (toUnit(rest q))))) q)
