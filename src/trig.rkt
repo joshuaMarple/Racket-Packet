@@ -23,7 +23,7 @@
 (define (qsin q)
   (q/ (list (q- (list (qexp (q* (list (list 0 (toUnit(rest q))) q))) 
   (qexp (q* (list) (list -1 0 0 0) (q* (list (list 0 (toUnit(rest q))) q))))))
-                      (q* (list 2 0 0 0) (list 0 (toUnit(rest q)))))))
+                      (q* (list (list 2 0 0 0) (list 0 (toUnit(rest q))))))))
                       
 (define (qcos q)
   (q/ (list (q+ (list (qexp (q* (list (list 0 (toUnit(rest q))) q))) 
