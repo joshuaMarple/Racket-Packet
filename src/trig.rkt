@@ -21,9 +21,11 @@
   (cons (cos (qmag v)) (map (lambda (x) (* (sin(qmag v)) x)) (toUnit v))))
 
 (define (qsin q)
-  (q/ (q- (qexp (q* (list 0 (toUnit(rest q))) q)) (qexp (q* (list -1 0 0 0) (q* (list 0 (toUnit(rest q))) q))))
-                      (q* (list 2 0 0 0) (list 0 (toUnit(rest q))))))
+  (q/ (q- (qexp (q* (list (list 0 (toUnit(rest q))) q))) 
+  (qexp (q* (list (list -1 0 0 0) (q* (list (list 0 (toUnit(rest q))) q)))))
+                      (q* (list 2 0 0 0) (list 0 (toUnit(rest q)))))))
                       
 (define (qcos q)
-  (q/ (q+ (qexp (q* (list 0 (toUnit(rest q))) q)) (qexp (q* (list -1 0 0 0) (q* (list 0 (toUnit(rest q))) q))))
-                      (q* (list 2 0 0 0) (list 0 (toUnit(rest q))))))
+  (q/ (q+ (qexp (q* (list (list 0 (toUnit(rest q))) q))) 
+  (qexp (q* (list (list -1 0 0 0) (q* (list (list 0 (toUnit(rest q))) q)))))
+                      (q* (list (list 2 0 0 0) (list 0 (toUnit(rest q))))))))
