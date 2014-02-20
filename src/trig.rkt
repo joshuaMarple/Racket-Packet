@@ -4,6 +4,8 @@
 
 (provide qlog)
 (provide qexp)
+(provide qsin)
+(provide qcos)
 
 ;Creates a unit vector for i j k
 (define (toUnit v)

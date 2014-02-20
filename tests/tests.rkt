@@ -1,5 +1,5 @@
 #lang racket
-(require "arithmetic.rkt")
+(require "../src/arithmetic.rkt")
 
 (define (test lists)
   (for ([i lists])
