@@ -18,10 +18,10 @@
 (define (ve v)
   (cons (cos (qmag v)) (map (lambda (x) (* (sin(qmag v)) x)) (toUnit v))))
 
-(define (sin q)
-  (map (lambda (q) (/ (- (exp (* (toUnit(rest q)) q)) (exp (* -1 (* (toUnit(rest q)) q))))
-                      (* 2 (toUnit(rest q))))) q))
+(define (qsin q)
+  (q/ (q- (qexp (q* (list 0 (toUnit(rest q))) q)) (qexp (q* (list -1 0 0 0) (q* (list 0 (toUnit(rest q))) q))))
+                      (q* (list 2 0 0 0) (list 0 (toUnit(rest q))))))
                       
-(define (cos q)
-  (map (lambda (q) (/ (+ (exp (* (toUnit(rest q)) q)) (exp (* -1 (* (toUnit(rest q)) q))))
-                      (* 2 (toUnit(rest q))))) q)
+(define (qcos q)
+  (q/ (q+ (qexp (q* (list 0 (toUnit(rest q))) q)) (qexp (q* (list -1 0 0 0) (q* (list 0 (toUnit(rest q))) q))))
+                      (q* (list 2 0 0 0) (list 0 (toUnit(rest q))))))
