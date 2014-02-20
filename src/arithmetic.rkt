@@ -26,14 +26,18 @@
 
 
 ;Mag gives you the Magnetude of a quartenion
-(define (qmag q)
+(define (qmag qlist)
+  (define q (car qlist))
+  (list 
   (sqrt
    (apply +(for/list ([d1 q])
              (expt d1 2)
            )
    )
-  )
+  ) 0 0 0)
 )
+
+
 ;Add sums two quaternions
 (define (add q1 q2)
   (for/list ([d1 q1]
@@ -88,17 +92,18 @@
 )
 
 ;qexpt make a quartenion power n
-(define (q^ q times) 
+(define (q^ q times)
   (if (= times 0) '(1 0 0 0)
-      (if (positive? times) (mult q (qexpt q (- times 1)))
-          (div (qexpt q (+ times 1)) q)
+      (if (positive? times) (mult q (q^ q (- times 1)))
+          (div (q^ q (+ times 1)) q)
        )
     
   )
 )
 
 (define (qexpt allq)
-  (q^ (first allq) (real (rest allq))))
+  (q^ (first allq) (real (cadr allq))))
+
 
 ;Recursively adds n quaternions
 (define (q+ allq)
@@ -139,7 +144,7 @@
   (if (equal? (cdr allq) '())
       #t
       (if (q= (cdr allq))
-          (andmap equal? (car allq) (cadr allq))
+          (andmap equal? (map inexact->exact (car allq)) (map inexact->exact (cadr allq)))
           #f
        )
   )
