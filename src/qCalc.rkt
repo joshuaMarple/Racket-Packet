@@ -1,9 +1,11 @@
 #lang racket
 (provide executor)
-(provide adder)
+;(provide adder)
 (require "arithmetic.rkt")
 (require "trig.rkt")
 (require racket/string)
+(define-namespace-anchor anc)
+(define ns (namespace-anchor->namespace anc))
 
 (define (qCalc op elements)
   (case op
@@ -21,7 +23,8 @@
     [else "Error"]))
 
 (define (executor text)
-  (eval (read (open-input-string (parser text)))))
+  (eval (read (open-input-string (parser text))) ns))
+ ; text)
 
 (define (parser text) 
   (string-replace 
