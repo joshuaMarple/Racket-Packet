@@ -36,7 +36,7 @@
 
 
 ;Add sums two quaternions
-(define (add q1 q2)
+(define (q+ q1 q2)
   (for/list ([d1 q1]
              [d2 q2])
   (+ d1 d2)
@@ -44,12 +44,12 @@
 )
 
 ;Sub subtracts the first quartenion by the second
-(define (sub q1 q2)
- (add q1 (map - q2))
+(define (q- q1 q2)
+ (q+ q1 (map - q2))
 )
 
 ;Mult multiply one quartenion by another
-(define (mult q1 q2)
+(define (q* q1 q2)
   (list   
     (- (- (- (* (real q1) (real q2)) (* (gi q1) (gi q2))) (* (gj q1)(gj q2))) (*(gk q1) (gk q2)))
            
@@ -62,57 +62,22 @@
 )
 
 ;Div divide one quartenion by another
-(define (div q1 q2)
-  (mult q1 (map (lambda (x) (/ x (* (qmag q2) (qmag q2)))) (append (list(real q2)) (map - (rest q2))))) 
+(define (q/ q1 q2)
+  (q* q1 (map (lambda (x) (/ x (* (qmag q2) (qmag q2)))) (append (list(real q2)) (map - (rest q2))))) 
 )
 
 ;qexpt make a quartenion power n
 (define (q^ q times)
   (if (= times 0) '(1 0 0 0)
-      (if (positive? times) (mult q (q^ q (- times 1)))
-          (div (q^ q (+ times 1)) q)
+      (if (positive? times) (q* q (q^ q (- times 1)))
+          (q/ (q^ q (+ times 1)) q)
        )
-    
   )
 )
 
 (define (qexpt allq)
   (q^ (first allq) (real (cadr allq))))
 
-
-;Recursively adds n quaternions
-(define (q+ allq)
-  (if (equal? (cdr allq) '())
-       (car allq)
-       (add (car allq) (q+ (cdr allq)))
-   )
-)
-
-;Recursively subs n quaternions
-(define (q- allq)
-  (if (equal? (cdr allq) '())
-      (car allq)
-      (sub (q- (removeLast allq)) (last allq)))
-)
-
-(define (removeLast L)
-  (reverse (cdr (reverse L)))
-)
-
-;Recursively multiply n quaternions
-(define (q* allq)
-  (if (equal? (cdr allq) '())
-      (car allq)
-      (mult (car allq) (q* (cdr allq)))
-      )
-)
-;Recursively divides n quaternions
-(define (q/ allq)
-  (if (equal? (cdr allq) '())
-      (car allq)
-      (div (car allq) (q/ (cdr allq)))
-  )
-)
 
 ;recursively compare n quarternions
 (define (q= allq)
