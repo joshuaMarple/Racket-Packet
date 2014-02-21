@@ -27,14 +27,11 @@
 
 ;Mag gives you the Magnetude of a quartenion
 (define (qmag qlist)
-  (define q (car qlist))
-  (list 
   (sqrt
-   (apply +(for/list ([d1 q])
+   (apply +(for/list ([d1 qlist])
              (expt d1 2)
            )
-   )
-  ) 0 0 0)
+   ) )
 )
 
 
