@@ -4,7 +4,7 @@
 (define-namespace-anchor a)
 (define ns (namespace-anchor->namespace a))
 (define dx .0001)
-
+(require "qCalc.rkt")
 (struct blog (posts) #:mutable)
 (struct post (value))
  
@@ -21,8 +21,7 @@
   (render-blog-page request))
 
 (define (parse-post1 bindings)
-  (post 5));(FUNCTIONFORPARSING
- ;                   (read-from-string(extract-binding/single 'variable bindings)))))
+  (post (executor (extract-binding/single 'quaternion bindings))))
                    
              
  
