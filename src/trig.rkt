@@ -9,7 +9,7 @@
 
 ;Creates a unit vector for i j k
 (define (toUnit v)
-  (map (lambda (x) (/ x (qmag (append v '(0))))) v))
+  (map (lambda (x) (/ x (qmag v))) v))
 
 (define (qlog q)
   (cons 0 (map (lambda (x) (* (acos(car q)) x)) (toUnit(rest q)))))
@@ -21,11 +21,13 @@
   (cons (cos (qmag v)) (map (lambda (x) (* (sin(qmag v)) x)) (toUnit v))))
 
 (define (qsin q)
-  (q/ (list (q- (list (qexp (q* (list (list 0 (toUnit(rest q))) q))) 
-  (qexp (q* (list) (list -1 0 0 0) (q* (list (list 0 (toUnit(rest q))) q))))))
-                      (q* (list (list 2 0 0 0) (list 0 (toUnit(rest q))))))))
+  (q/ (list (q- (list (qexp (q* (list q (append (list 0) (toUnit(rest q)))))) 
+  (qexp (q* (list(list -1 0 0 0) (q* (list q (append (list 0) (toUnit(rest q))))))))
+                      (q* (list (list 2 0 0 0) (append (list 0) (toUnit(rest q))))))))))
                       
 (define (qcos q)
-  (q/ (list (q+ (list (qexp (q* (list (list 0 (toUnit(rest q))) q))) 
-  (qexp (q* (list (list -1 0 0 0) (q* (list (list 0 (toUnit(rest q))) q)))))))
-                      (q* (list (list 2 0 0 0) (list 0 (toUnit(rest q))))))))
+  (q/ (list (q+ (list (qexp (q* (list (append (list 0) (toUnit(rest q))) q))) 
+  (qexp (q* (list (list -1 0 0 0) (q* (list (append (list 0) (toUnit(rest q))) q)))))))
+                      (q* (list (list 2 0 0 0) (append (list 0) (toUnit(rest q))))))))
+;'(-2.958 -3.81 ...)
+;'(2.4525 .853 .. . )
