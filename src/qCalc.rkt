@@ -23,14 +23,30 @@
 (define (executor text)
   (eval (read (open-input-string (parser text)))))
 
+;for loop with switch statement to do the string-replace
 (define (parser text) 
-  (string-replace 
+  (string-replace
    (string-replace
     (string-replace
-     (string-replace text "+" "adder")
-     "-" "minuser")
-    "*" "multiplier")
-   "/" "divider"))
+     (string-replace
+      (string-replace
+       (string-replace
+        (string-replace
+         (string-replace 
+          (string-replace
+           (string-replace
+            (string-replace text "+" "adder")
+            "-" "minuser")
+           "*" "multiplier")
+          "/" "divider") 
+         "=" "equaler")
+        "sin" "sinner")
+       "cos" "coser")
+      "log" "logger")
+     "^" "exper")
+    "e" "eer")
+   "mag" "magger"))
+   
 
 (define (adder a b) 
   (if (complex? a)
@@ -76,6 +92,31 @@
           (if (and (quaternion? a) (quaternion? b))
               (multiply a b)
               ("error, invalid input")))))
+
+(define (divider a b) 
+  (if (complex? a)
+      (if (complex? b)
+          (/ a b)
+          (if (quaternion? b)
+              (division (quaternion (real-part a) (imag-part a) 0 0) b)
+              "error, b is invalid"))
+      (if (complex? b)
+          (if (quaternion? a)
+              (division a (quaternion (real-part b) (imag-part b) 0 0))
+              ("error, a is invalid"))
+          (if (and (quaternion? a) (quaternion? b))
+              (division a b)
+              ("error, invalid input")))))
+
+(define 
+
+(define (magger a)
+  (if (complex? a)
+      (magnitude a)
+      (if (quaternion? a)
+          (mag a)
+          ("error, invalid input"))))
+
 
 (define-struct quaternion (a b c d)
   #:transparent)
@@ -135,6 +176,8 @@
         ans
         (apply division (cons ans q-rest)))))
 
+(define (mag q)
+  (qmag (list (quaternion-a q) (quaternion-b q) (quaternion-c q) (quaternion-d q))))
 
 ;(define (multiply q1 q2 . q-rest)
 ;  (let ((ans (match* (q1 q2)
