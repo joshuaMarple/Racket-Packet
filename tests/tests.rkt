@@ -65,29 +65,50 @@
                ( ((0  1  0  0)) (0  1.5708  0  0) (0  1.1752  0  0) (1.5431  0  0  0))
                ( ((1  0  0  0)) (0  0  0  0) (0.84147  0  0  0) (0.5403  0  0  0))))
 
-
+(define (test_q+)
+  (qtest_helper (q+ '((0 0 0 1) (0 0 0 1))) '(0 0 0 2))
+  (qtest_helper (q+ '((0 0 0 1) (0 0 1 0))) '(0 0 1 1))
+  (qtest_helper (q+ '((0 0 0 1) (0 1 0 0))) '(0 1 0 1))
+  (qtest_helper (q+ '((0 0 0 1) (1 0 0 0))) '(1 0 0 1))
+  
+  (qtest_helper (q+ '((0 0 1 0) (0 0 0 1))) '(0 0 1 1))
+  (qtest_helper (q+ '((0 0 1 0) (0 0 1 0))) '(0 0 2 0))
+  (qtest_helper (q+ '((0 0 1 0) (0 1 0 0))) '(0 1 1 0))
+  (qtest_helper (q+ '((0 0 1 0) (1 0 0 0))) '(1 0 1 0))
+  
+  (qtest_helper (q+ '((0 1 0 0) (0 0 0 1))) '(0 1 0 1))
+  (qtest_helper (q+ '((0 1 0 0) (0 0 1 0))) '(0 1 1 0))
+  (qtest_helper (q+ '((0 1 0 0) (0 1 0 0))) '(0 2 0 0))
+  (qtest_helper (q+ '((0 1 0 0) (1 0 0 0))) '(1 1 0 0))
+  
+  (qtest_helper (q+ '((1 0 0 0) (0 0 0 1))) '(1 0 0 1))
+  (qtest_helper (q+ '((1 0 0 0) (0 0 1 0))) '(1 0 1 0))
+  (qtest_helper (q+ '((1 0 0 0) (0 1 0 0))) '(1 1 0 0))
+  (qtest_helper (q+ '((1 0 0 0) (1 0 0 0))) '(2 0 0 0))
+  
+  (display "test q+ complete"))
 
 (define (test_qmag)
   (check-= (qmag '(1 1 1 1)) 2 1.0 "#1")
   (check-= (qmag '(1 1 1 2)) 2.6458 1.0 "#2")
   (check-= (qmag '(-1 -3 4 5)) 7.1414 1.0 "#3")
   (check-= (qmag '(2 2 2 2)) 4 "#4")
-  (check-equal? (qmag '(1 1 1 1)) 2 "#5")
+  (check-= (qmag '(1 1 1 1)) 2 "#5")
   (display "test qmag complete"))
 
 
 (define (test_qsin)
-  (qtest_helper (qsin '(1 2 3 4)) '(91.784 21.886 32.83 43.773) "#1")
-  (qtest_helper (qsin '(1 2 3 4)) '(91.784 21.886 32.83 43.773) "#1")
-  (qtest_helper (qsin '(1 2 3 4)) '(91.784 21.886 32.83 43.773) "#1")
+  (qtest_helper (qsin '(1 2 3 4)) '(91.784 21.886 32.83 43.773))
+  (qtest_helper (qsin '(1 2 3 4)) '(91.784 21.886 32.83 43.773))
+  (qtest_helper (qsin '(1 2 3 4)) '(91.784 21.886 32.83 43.773))
   
   (display "test qsin complete"))
 
 
 
 (define (qtest_helper result answer)
-  (check-= (list-ref result 0) (list-ref answer 0) 1.0 "component is off by at least 1.0")
-  (check-= (list-ref result 1) (list-ref answer 1) 1.0 "component is off by at least 1.0")
-  (check-= (list-ref result 2) (list-ref answer 2) 1.0 "component is off by at least 1.0")
-  (check-= (list-ref result 3) (list-ref answer 3) 1.0 "component is off by at least 1.0"))
+  (check-= (list-ref result 0) (list-ref answer 0) 0.01 "component is off by at least 0.01")
+  (check-= (list-ref result 1) (list-ref answer 1) 0.01 "component is off by at least 0.01")
+  (check-= (list-ref result 2) (list-ref answer 2) 0.01 "component is off by at least 0.01")
+  (check-= (list-ref result 3) (list-ref answer 3) 0.01 "component is off by at least 0.01"))
 
