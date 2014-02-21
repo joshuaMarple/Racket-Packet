@@ -46,8 +46,8 @@
         "sin" "sinner")
        "cos" "coser")
       "log" "logger")
-     "^" "exper")
-    "e" "eer")
+     "expt" "expter")
+    "exp" "eer")
    "mag" "magger"))
    
 
@@ -111,7 +111,41 @@
               (division a b)
               ("error, invalid input")))))
 
-(define 
+(define (equaler a b)
+  (if (complex? a)
+      (if (complex? b)
+          (= a b)
+          (if (quaternion? b)
+              (equal? (quaternion (real-part a) (imag-part a) 0 0) b)
+              "error, b is invalid"))
+       (if (complex? b)
+          (if (quaternion? a)
+              (equal? a (quaternion (real-part b) (imag-part b) 0 0))
+              ("error, a is invalid"))
+          (if (and (quaternion? a) (quaternion? b))
+              (equal? a b)
+              ("error, invalid input")))))
+
+(define (sinner q)
+  (if (complex? q)
+      (sin q)
+      (if (quaternion? q)
+          (qsin (list (quaternion-a q) (quaternion-b q) (quaternion-c q) (quaternion-d q)))
+          ("error, invalid input"))))
+
+(define (coser q)
+  (if (complex? q)
+      (cos q)
+      (if (quaternion? q)
+          (qcos (list (quaternion-a q) (quaternion-b q) (quaternion-c q) (quaternion-d q)))
+          ("error, invalid input"))))
+
+(define (logger q)
+  (if (complex? q)
+      (log q)
+      (if (quaternion? q)
+          (qlog (list (quaternion-a q) (quaternion-b q) (quaternion-c q) (quaternion-d q)))
+          ("error, invalid input"))))
 
 (define (magger a)
   (if (complex? a)
@@ -119,6 +153,20 @@
       (if (quaternion? a)
           (mag a)
           ("error, invalid input"))))
+
+(define (eer a)
+  (if (complex? a)
+      (exp a)
+      (if (quaternion? a)
+          (qexp (list (quaternion-a a) (quaternion-b a) (quaternion-c a) (quaternion-d a)))
+          "error")))
+
+(define (exptr a b)
+  (if (complex? a)
+      (expt a b)
+      (if (quaternion? a)
+          (qexpt (list (list (quaternion-a a) (quaternion-b a) (quaternion-c a) (quaternion-d a)) (list b)))
+          "error")))
 
 
 (define-struct quaternion (a b c d)
@@ -150,7 +198,7 @@
 (define (add q1 q2 . q-rest)
   (let ((ans (match* (q1 q2)
                [((quaternion: a1 b1 c1 d1) (quaternion: a2 b2 c2 d2))
-                (q+ (list (list a1 b1 c1 d1) (list a2 b2 c2 d2)))])))
+                (q+ (list a1 b1 c1 d1) (list a2 b2 c2 d2))])))
     (if (empty? q-rest)
         ans
         (apply add (cons ans q-rest)))))
@@ -158,7 +206,7 @@
 (define (minus q1 q2 . q-rest)
   (let ((ans (match* (q1 q2)
                [((quaternion: a1 b1 c1 d1) (quaternion: a2 b2 c2 d2))
-                (q- (list (list a1 b1 c1 d1) (list a2 b2 c2 d2)))])))
+                (q- (list a1 b1 c1 d1) (list a2 b2 c2 d2))])))
     (if (empty? q-rest)
         ans
         (apply minus (cons ans q-rest)))))
@@ -166,7 +214,7 @@
 (define (multiply q1 q2 . q-rest)
   (let ((ans (match* (q1 q2)
                [((quaternion: a1 b1 c1 d1) (quaternion: a2 b2 c2 d2))
-                (q* (list (list a1 b1 c1 d1) (list a2 b2 c2 d2)))])))
+                (q* (list a1 b1 c1 d1) (list a2 b2 c2 d2))])))
     (if (empty? q-rest)
         ans
         (apply multiply (cons ans q-rest)))))
@@ -174,7 +222,7 @@
 (define (division q1 q2 . q-rest)
   (let ((ans (match* (q1 q2)
                [((quaternion: a1 b1 c1 d1) (quaternion: a2 b2 c2 d2))
-                (q/ (list (list a1 b1 c1 d1) (list a2 b2 c2 d2)))])))
+                (q/ (list a1 b1 c1 d1) (list a2 b2 c2 d2))])))
     (if (empty? q-rest)
         ans
         (apply division (cons ans q-rest)))))
@@ -194,6 +242,7 @@
 ;        (apply multiply (cons ans q-rest)))))
 
 ;; Tests
+
 (module+ main
   (define i (quaternion 0 1 0 0))
   (define j (quaternion 0 0 1 0))
