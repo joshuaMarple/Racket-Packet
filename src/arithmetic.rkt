@@ -27,14 +27,11 @@
 
 ;Mag gives you the Magnetude of a quartenion
 (define (qmag qlist)
-  (define q (car qlist))
-  (list 
   (sqrt
-   (apply +(for/list ([d1 q])
+   (apply +(for/list ([d1 qlist])
              (expt d1 2)
            )
-   )
-  ) 0 0 0)
+   ) )
 )
 
 
@@ -56,39 +53,17 @@
   (list   
     (- (- (- (* (real q1) (real q2)) (* (gi q1) (gi q2))) (* (gj q1)(gj q2))) (*(gk q1) (gk q2)))
            
-    (+(- (+ (* (real q1) (gi q2)) (* (gi q1) (real q2))) (* (gj q1)(gk q2))) (*(gk q1) (gj q2)))
+    (- (+ (+ (* (real q1) (gi q2)) (* (gi q1) (real q2))) (* (gj q1)(gk q2))) (*(gk q1) (gj q2)))
            
-    (- (+ (+ (* (real q1) (gj q2)) (* (gi q1) (gk q2))) (* (gj q1)(real q2))) (*(gk q1) (gi q2)))
+    (+ (+ (- (* (real q1) (gj q2)) (* (gi q1) (gk q2))) (* (gj q1)(real q2))) (*(gk q1) (gi q2)))
            
-    (+ (+ (- (* (real q1) (gk q2)) (* (gi q1) (gj q2))) (* (gj q1)(gi q2))) (*(gk q1) (real q2)))
+    (+ (- (+ (* (real q1) (gk q2)) (* (gi q1) (gj q2))) (* (gj q1)(gi q2))) (*(gk q1) (real q2)))
    )
 )
 
 ;Div divide one quartenion by another
 (define (div q1 q2)
-(define divnumber (apply +(for/list ([d1 q2])(expt d1 2))))
- (list 
-   (/ 
-    (+ (+ (+ (* (real q1) (real q2)) (* (gi q1) (gi q2) )) (* (gj q1) (gj q2) )) (* (gk q1) (gk q2))) 
-    divnumber
-   )
-   
-   (/ 
-    (+ (- (- (* (real q1) (gi q2)) (* (gi q1) (real q2) )) (* (gj q1) (gk q2) )) (* (gk q1) (gj q2))) 
-    divnumber
-   )
-   
-   (/ 
-    (- (- (+ (* (real q1) (gj q2)) (* (gi q1) (gk q2) )) (* (gj q1) (real q2) )) (* (gk q1) (gi q2))) 
-    divnumber
-   )
-   
-   (/ 
-    (- (+ (- (* (real q1) (gk q2)) (* (gi q1) (gj q2) )) (* (gj q1) (gi q2) )) (* (gk q1) (real q2)))  
-    divnumber
-   )
-   
-  )
+  (mult q1 (map (lambda (x) (/ x (* (qmag q2) (qmag q2)))) (append (list(real q2)) (map - (rest q2))))) 
 )
 
 ;qexpt make a quartenion power n
