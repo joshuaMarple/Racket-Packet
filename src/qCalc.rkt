@@ -46,8 +46,8 @@
         "sin" "sinner")
        "cos" "coser")
       "log" "logger")
-     "^" "exper")
-    "e" "eer")
+     "expt" "expter")
+    "exp" "eer")
    "mag" "magger"))
    
 
@@ -111,7 +111,7 @@
               (division a b)
               ("error, invalid input")))))
 
-(define 
+;(define 
 
 (define (magger a)
   (if (complex? a)
@@ -119,6 +119,20 @@
       (if (quaternion? a)
           (mag a)
           ("error, invalid input"))))
+
+(define (eer a)
+  (if (complex? a)
+      (exp a)
+      (if (quaternion? a)
+          (qexp (list (quaternion-a a) (quaternion-b a) (quaternion-c a) (quaternion-d a)))
+          "error")))
+
+(define (exptr a b)
+  (if (complex? a)
+      (expt a b)
+      (if (quaternion? a)
+          (qexpt (list (list (quaternion-a a) (quaternion-b a) (quaternion-c a) (quaternion-d a)) (list b)))
+          "error")))
 
 
 (define-struct quaternion (a b c d)
@@ -194,6 +208,7 @@
 ;        (apply multiply (cons ans q-rest)))))
 
 ;; Tests
+
 (module+ main
   (define i (quaternion 0 1 0 0))
   (define j (quaternion 0 0 1 0))
