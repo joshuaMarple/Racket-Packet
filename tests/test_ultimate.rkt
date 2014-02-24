@@ -1,8 +1,15 @@
 #lang racket
 (require "test_q+.rkt")
-
+(require "test_q-.rkt")
+(require "test_qtimes.rkt")
+(require "test_qdivide.rkt")
 (require "test_qmag.rkt")
 (require "test_qsin.rkt")
+(require "test_qcos.rkt")
+(require "test_qlog.rkt")
+(require "test_exponent.rkt")
+(require "test_e.rkt")
+(require "test_qequals.rkt")
 
 (define (test_ultimate)
     (test_q+)
@@ -13,5 +20,8 @@
     (test_qsin)
     (test_qcos)
     (test_qlog)
+    (test_expt)
+    (test_e)
+    (test_qequals)
     
     (display "ultimate test complete"))
