@@ -20,7 +20,7 @@
     (test_qsin)
     (test_qcos)
     (test_qlog)
-    (test_expt)
+    (test_qexpt)
     (test_e)
     (test_qequals)
     

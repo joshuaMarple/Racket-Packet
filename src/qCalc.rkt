@@ -161,7 +161,7 @@
           (qexp (list (quaternion-a a) (quaternion-b a) (quaternion-c a) (quaternion-d a)))
           "error")))
 
-(define (exptr a b)
+(define (expter a b)
   (if (complex? a)
       (expt a b)
       (if (quaternion? a)
