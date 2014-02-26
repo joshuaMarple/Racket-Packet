@@ -24,4 +24,4 @@
   (qtest_helper (q/ '(1 0 0 0) '(0 1 0 0)) '(0 -1 0 0))
   (qtest_helper (q/ '(1 0 0 0) '(1 0 0 0)) '(1 0 0 0))
   
-  (display "test q/ complete"))
+  (displayln "test q/ complete"))
