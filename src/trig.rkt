@@ -13,7 +13,7 @@
 
 (define (qlog q)
    (if (= (qmag (list (gi q) (gj q) (gk q))) 0)  (list (log (real q)) 0 0 0)
-       (cons 0 (map (lambda (x) (* (acos(car q)) x)) (toUnit(rest q))))))
+       (cons (log (qmag q)) (map (lambda (x) (* (acos(/ (real q) (qmag q))) x)) (toUnit(rest q))))))
 
 (define (qexp q)
    (if (= (qmag (list (gi q) (gj q) (gk q))) 0) (list (exp (real q)) 0 0 0)
