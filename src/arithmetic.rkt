@@ -63,21 +63,18 @@
 
 ;Div divide one quartenion by another
 (define (q/ q1 q2)
-  (q* q1 (map (lambda (x) (/ x (* (qmag q2) (qmag q2)))) (append (list(real q2)) (map - (rest q2))))) 
+  (if (= 0 (qmag q2)) (map (lambda (x) (/ x (real q2))) q1)
+      (q* q1 (map (lambda (x) (/ x (* (qmag q2) (qmag q2)))) (append (list(real q2)) (map - (rest q2))))))
 )
 
 ;qexpt make a quartenion power n
-(define (q^ q times)
+(define (qexpt q times)
   (if (= times 0) '(1 0 0 0)
-      (if (positive? times) (q* q (q^ q (- times 1)))
-          (q/ (q^ q (+ times 1)) q)
+      (if (positive? times) (q* q (qexpt q (- times 1)))
+          (q/ (qexpt q (+ times 1)) q)
        )
   )
 )
-
-(define (qexpt allq)
-  (q^ (first allq) (real (cadr allq))))
-
 
 ;recursively compare n quarternions
 (define (q= allq)
