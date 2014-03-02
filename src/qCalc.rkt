@@ -169,7 +169,9 @@
   (if (complex? a)
       (expt a b)
       (if (quaternion? a)
-          (qexpt (list (list (quaternion-a a) (quaternion-b a) (quaternion-c a) (quaternion-d a)) (list b)))
+          (if (quaternion? b) 
+            "error"
+            (qexpt (list (quaternion-a a) (quaternion-b a) (quaternion-c a) (quaternion-d a)) b))
           "error")))
 
 
