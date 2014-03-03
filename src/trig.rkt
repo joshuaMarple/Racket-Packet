@@ -36,10 +36,3 @@
 
 ;'(-2.958 -3.81 ...)
 ;'(2.4525 .853 ...)
-
-(define q '(0 1 1 1))
-(qlog q)
-(qexp q)
-(q* q (append (list 0)(toUnit(rest q))))
-(qsin q)
-(qcos q)
