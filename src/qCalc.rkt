@@ -47,7 +47,7 @@
        "cos" "coser")
       "log" "logger")
      "expt" "expter")
-    "exp" "eer")
+    "exp " "eer ")
    "mag" "magger"))
    
 
