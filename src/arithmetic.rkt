@@ -69,13 +69,25 @@
 )
 
 ;qexpt make a quartenion power n
+;(define (qexpt q times)
+;  (if (= times 0) '(1 0 0 0)
+;      (if (positive? times) (q* q (qexpt q (- times 1)))
+;          (q/ (qexpt q (+ times 1)) q)
+;      )
+;  )
+;)
+
 (define (qexpt q times)
-  (if (= times 0) '(1 0 0 0)
-      (if (positive? times) (q* q (qexpt q (- times 1)))
-          (q/ (qexpt q (+ times 1)) q)
-       )
+  (define v (list (gi q) (gj q) (gk q)))
+  (define magv (qmag (list 0 (gi q) (gj q) (gk q))))
+  (define n (map (lambda (x) (/ x magv)) v ))
+  (define theta (acos (/ (real q) (qmag q))))
+  (define multfactor (expt (qmag q) times))
+  (define realnumber (cos (* theta times)))
+  (define restnumbers (map (lambda (x) (* x (sin (* theta times)))) n))
+  (map (lambda (x)  (* x multfactor)) (cons realnumber restnumbers))
   )
-)
+
 
 ;recursively compare n quarternions
 (define (q= allq)
