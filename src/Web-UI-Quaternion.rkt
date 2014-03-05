@@ -38,7 +38,7 @@
                            (input ((type "text")(name "quaternion")))
                            (input ((type "submit"))))
                      (div ((style "border: double #FFFFFF 10px; width: 800px; height: 500px")) "OUTPUT: \n" ,(render-posts))))
-                     (a ((href "/test.rtf") (style "color: #C0C0C0")) "User Manual")
+                     (a ((href "/test.rtf") (style "color: #C0C0C0")) "User Manual")(br)
                      (a ((href "www.google.com") (style "color: #C0C0C0")) "System Documentation")
                    (br)(br)(br)(br)(br)
                   (footer(left(img((src "http://upload.wikimedia.org/wikipedia/en/4/4c/University_of_Kansas_Jayhawk_logo.svg")(width "10%")(height "10%")))
